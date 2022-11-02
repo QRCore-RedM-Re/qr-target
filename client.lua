@@ -283,7 +283,6 @@ local Functions = {
 
 			CreateThread(function()
 				repeat
-					-- SetPauseMenuActive(false)
 					if hasFocus then
 						DisableControlAction(0, 1, true)
 						DisableControlAction(0, 2, true)
@@ -347,7 +346,7 @@ local Functions = {
 							if next(send_options) then
 								success = true
 								SendNUIMessage({response = "foundTarget", data = sendData[slot].targeticon})
-								self:DrawOutlineEntity(entity, true)
+								self:DrawOutlineEntity(entity, false)
 								while targetActive and success do
 									local playerCoords = GetEntityCoords(playerPed)
 									local _, coords, entity2 = self:RaycastCamera(hit)
@@ -477,7 +476,7 @@ local Functions = {
 		if targetActive and not hasFocus then
 			SetCursorLocation(0.5, 0.5)
 			SetNuiFocus(true, true)
-			SetNuiFocusKeepInput(true)
+			SetNuiFocusKeepInput(false)
 			hasFocus = true
 			SendNUIMessage({response = "validTarget", data = options})
 		end

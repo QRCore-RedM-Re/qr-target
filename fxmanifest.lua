@@ -8,24 +8,26 @@ version '2.4.8'
 
 ui_page 'html/index.html'
 
-
 client_scripts {
 	'@PolyZone/client.lua',
 	'@PolyZone/BoxZone.lua',
 	'@PolyZone/EntityZone.lua',
 	'@PolyZone/CircleZone.lua',
 	'@PolyZone/ComboZone.lua',
-	'client/*.lua',
+	'client.lua',
+	'init.lua',
 }
 
 files {
+	'data/*.lua',
 	'config.lua',
 	'html/*.html',
 	'html/css/*.css',
 	'html/js/*.js'
 }
 
-dependencies {
-	"PolyZone",
-	"qr-core"
-}
+lua54 'yes'
+use_experimental_fxv2_oal 'yes'
+
+dependency 'PolyZone'
+

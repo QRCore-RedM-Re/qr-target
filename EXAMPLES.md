@@ -20,8 +20,8 @@ exports['qb-target']:AddBoxZone("MissionRowDutyClipboard", vector3(441.7989, -98
 	}, {
 		options = {
 			{
-            			type = "client",
-            			event = "Toggle:Duty",
+            	type = "client",
+            	event = "Toggle:Duty",
 				icon = "fas fa-sign-in-alt",
 				label = "Sign In",
 				job = "police",
