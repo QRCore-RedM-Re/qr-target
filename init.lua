@@ -127,7 +127,6 @@ CreateThread(function()
 	if Config.Standalone then
 		local firstSpawn = false
 		local event = AddEventHandler('playerSpawned', function()
-			SpawnPeds()
 			firstSpawn = true
 		end)
 		-- Remove event after it has been triggered
@@ -174,12 +173,10 @@ CreateThread(function()
 
 		RegisterNetEvent('QRCore:Client:OnPlayerLoaded', function()
 			PlayerData = QRCore.Functions.GetPlayerData()
-			SpawnPeds()
 		end)
 
 		RegisterNetEvent('QRCore:Client:OnPlayerUnload', function()
 			PlayerData = {}
-			DeletePeds()
 		end)
 
 		RegisterNetEvent('QRCore:Client:OnJobUpdate', function(JobInfo)
