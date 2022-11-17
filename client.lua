@@ -53,7 +53,7 @@ local Functions = {
 	end,
 
 	AddTargetEntity = function(self, entity, parameters)
-		if NetworkGetEntityIsNetworked(entities) then entity = NetworkGetNetworkIdFromEntity(entity) end -- Allow non-networked entities to be targeted
+		if NetworkGetEntityIsNetworked(entity) then entity = NetworkGetNetworkIdFromEntity(entity) end -- Allow non-networked entities to be targeted
 		if entity then
 			local distance, options = parameters.distance or Config.MaxDistance, parameters.options
 			if not Entities[entity] then Entities[entity] = {} end
@@ -133,7 +133,7 @@ local Functions = {
 	end,
 
 	RemoveTargetEntity = function(self, entity, labels)
-		if NetworkGetEntityIsNetworked(entities) then entity = NetworkGetNetworkIdFromEntity(entity) end -- Allow non-networked entities to be targeted
+		if NetworkGetEntityIsNetworked(entity) then entity = NetworkGetNetworkIdFromEntity(entity) end -- Allow non-networked entities to be targeted
 		if entity then
 			if type(labels) == 'table' then
 				for k, v in pairs(labels) do
