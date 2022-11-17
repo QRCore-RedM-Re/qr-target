@@ -53,11 +53,9 @@ local Functions = {
 	end,
 
 	AddTargetEntity = function(self, entity, parameters)
-		local entity = NetworkGetEntityIsNetworked(entity) and NetworkGetNetworkIdFromEntity(entity) or false
-		print(entity)
+		if NetworkGetEntityIsNetworked(entities) then entity = NetworkGetNetworkIdFromEntity(entity) end -- Allow non-networked entities to be targeted
 		if entity then
 			local distance, options = parameters.distance or Config.MaxDistance, parameters.options
-			print(distance)
 			if not Entities[entity] then Entities[entity] = {} end
 			for k, v in pairs(options) do
 				if not v.distance or v.distance > distance then v.distance = distance end
@@ -135,7 +133,7 @@ local Functions = {
 	end,
 
 	RemoveTargetEntity = function(self, entity, labels)
-		local entity = NetworkGetEntityIsNetworked(entity) and NetworkGetNetworkIdFromEntity(entity) or false
+		if NetworkGetEntityIsNetworked(entities) then entity = NetworkGetNetworkIdFromEntity(entity) end -- Allow non-networked entities to be targeted
 		if entity then
 			if type(labels) == 'table' then
 				for k, v in pairs(labels) do
@@ -311,6 +309,11 @@ local Functions = {
 				local plyCoords = GetEntityCoords(playerPed)
 				local hit, coords, entity, entityType = self:RaycastCamera(self:switch())
 				if entityType > 0 then
+
+					-- Local entity targets
+					if Entities[entity] then
+						self:CheckEntity(hit, Entities[entity], entity, #(plyCoords - coords))
+					end
 
 					-- Owned entity targets
 					if NetworkGetEntityIsNetworked(entity) then
