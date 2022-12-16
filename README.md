@@ -1,8 +1,8 @@
 # qr-target
 
-Thanks to [R S K](https://github.com/mn9-29), for posting this for the QR servers.
+Thanks to R S K, for posting this for the QR servers.
 
-qr-target is a targeting solution that allows interaction with any predefined entity, model, entity type, or polyzone. While activated you can easily and safely replace markers and distance checking, instead relying on intuitive design to improve player experiences and optimize interaction.
+qbr-target is a targeting solution that allows interaction with any predefined entity, model, entity type, or polyzone. While activated you can easily and safely replace markers and distance checking, instead relying on intuitive design to improve player experiences and optimize interaction.
 
 # Credits
 

@@ -25,11 +25,47 @@ Config.EnableDefaultOptions = false
 -- These are all empty for you to fill in, refer to the wiki and .md files for help in filling these in
 
 Config.CircleZones = {
-
+	["index"] = {
+		name = "test2",
+		coords = vector3(1337.39, -1304.32, 76.24),
+		radius = 1.02,
+		debugPoly = true,
+		options = {
+			{
+				type = "client",
+				event = "Test:Event",
+				icon = "fas fa-example",
+				label = "Test",
+				targeticon = "fas fa-hat-wizard",
+				action = function()
+					print('that works dude!')
+				end
+			}
+		},
+		distance = 2.5
+	},
 }
 
 Config.BoxZones = {
-
+	["boxzone1"] = {
+        name = "Test",
+        coords = vector3(2938.88, 1290.05, 44.65),
+        length = 2,
+        width = 2,
+        heading = 54.7,
+        debugPoly = false,
+        minZ = 43,
+        maxZ = 47,
+        options = {
+            {
+                type = "client",
+                event = "",
+                icon = "fas fa-sign-in-alt",
+                label = "Sign In",
+            },
+        },
+        distance = 2.5
+    },
 }
 
 Config.PolyZones = {
@@ -48,7 +84,36 @@ Config.EntityZones = {
 }
 
 Config.TargetModels = {
-
+	["ClothingValentine"] = {
+		name="ClothingValentine",
+		models = {
+			75028703,
+			293523278,
+			-51505783,
+			-546862027
+		},
+		options = {
+			{
+				type = "client",
+				icon = "fas fa-tshirt",
+				label = "Open Clothing Menu",
+				targeticon = "fas fa-eye",
+				action = function()
+					TriggerEvent('qr-clothing:client:openMenu', false, true)
+				end
+			},
+			{
+				type = "client",
+				icon = "fas fa-tshirt",
+				label = "Open Outfits Menu",
+				targeticon = "fas fa-eye",
+				action = function()
+					TriggerEvent('qr-clothing:client:openOutfit')
+				end
+			}
+		},
+		distance = 2.5
+	}
 }
 
 Config.PedOptions = {
@@ -88,7 +153,82 @@ end
 -------------------------------------------------------------------------------
 
 if Config.EnableDefaultOptions then
- -- NIL
+	Bones['seat_dside_f'] = {
+		options = {
+			{
+				icon = "fas fa-door-open",
+				label = "Toggle front Door",
+				canInteract = function(entity)
+					return GetEntityBoneIndexByName(entity, 'door_dside_f') ~= -1
+				end,
+				action = function(entity)
+					Config.ToggleDoor(entity, 0)
+				end
+			},
+		},
+		distance = 1.2
+	}
+
+	Bones['seat_pside_f'] = {
+		options = {
+			{
+				icon = "fas fa-door-open",
+				label = "Toggle front Door",
+				canInteract = function(entity)
+					return GetEntityBoneIndexByName(entity, 'door_pside_f') ~= -1
+				end,
+				action = function(entity)
+					Config.ToggleDoor(entity, 1)
+				end
+			},
+		},
+		distance = 1.2
+	}
+
+	Bones['seat_dside_r'] = {
+		options = {
+			{
+				icon = "fas fa-door-open",
+				label = "Toggle rear Door",
+				canInteract = function(entity)
+					return GetEntityBoneIndexByName(entity, 'door_dside_r') ~= -1
+				end,
+				action = function(entity)
+					Config.ToggleDoor(entity, 2)
+				end
+			},
+		},
+		distance = 1.2
+	}
+
+	Bones['seat_pside_r'] = {
+		options = {
+			{
+				icon = "fas fa-door-open",
+				label = "Toggle rear Door",
+				canInteract = function(entity)
+					return GetEntityBoneIndexByName(entity, 'door_pside_r') ~= -1
+				end,
+				action = function(entity)
+					Config.ToggleDoor(entity, 3)
+				end
+			},
+		},
+		distance = 1.2
+	}
+
+	Bones['bonnet'] = {
+		options = {
+			{
+				icon = "fa-duotone fa-engine",
+				label = "Toggle Hood",
+				action = function(entity)
+					Config.ToggleDoor(entity, 4)
+				end
+			},
+		},
+		distance = 0.9
+	}
 end
 
 -------------------------------------------------------------------------------
