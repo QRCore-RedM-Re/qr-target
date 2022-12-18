@@ -53,11 +53,9 @@ local Functions = {
 	end,
 
 	AddTargetEntity = function(self, entity, parameters)
-		local entity = NetworkGetEntityIsNetworked(entity) and NetworkGetNetworkIdFromEntity(entity) or false
-		print(entity)
+		if NetworkGetEntityIsNetworked(entity) then entity = NetworkGetNetworkIdFromEntity(entity) end -- Allow non-networked entities to be targeted
 		if entity then
 			local distance, options = parameters.distance or Config.MaxDistance, parameters.options
-			print(distance)
 			if not Entities[entity] then Entities[entity] = {} end
 			for k, v in pairs(options) do
 				if not v.distance or v.distance > distance then v.distance = distance end
@@ -135,7 +133,7 @@ local Functions = {
 	end,
 
 	RemoveTargetEntity = function(self, entity, labels)
-		local entity = NetworkGetEntityIsNetworked(entity) and NetworkGetNetworkIdFromEntity(entity) or false
+		if NetworkGetEntityIsNetworked(entity) then entity = NetworkGetNetworkIdFromEntity(entity) end -- Allow non-networked entities to be targeted
 		if entity then
 			if type(labels) == 'table' then
 				for k, v in pairs(labels) do
@@ -283,7 +281,6 @@ local Functions = {
 
 			CreateThread(function()
 				repeat
-					-- SetPauseMenuActive(false)
 					if hasFocus then
 						DisableControlAction(0, 1, true)
 						DisableControlAction(0, 2, true)
@@ -312,6 +309,11 @@ local Functions = {
 				local plyCoords = GetEntityCoords(playerPed)
 				local hit, coords, entity, entityType = self:RaycastCamera(self:switch())
 				if entityType > 0 then
+
+					-- Local entity targets
+					if Entities[entity] then
+						self:CheckEntity(hit, Entities[entity], entity, #(plyCoords - coords))
+					end
 
 					-- Owned entity targets
 					if NetworkGetEntityIsNetworked(entity) then
@@ -347,7 +349,7 @@ local Functions = {
 							if next(send_options) then
 								success = true
 								SendNUIMessage({response = "foundTarget", data = sendData[slot].targeticon})
-								self:DrawOutlineEntity(entity, true)
+								self:DrawOutlineEntity(entity, false)
 								while targetActive and success do
 									local playerCoords = GetEntityCoords(playerPed)
 									local _, coords, entity2 = self:RaycastCamera(hit)
@@ -477,7 +479,7 @@ local Functions = {
 		if targetActive and not hasFocus then
 			SetCursorLocation(0.5, 0.5)
 			SetNuiFocus(true, true)
-			SetNuiFocusKeepInput(true)
+			SetNuiFocusKeepInput(false)
 			hasFocus = true
 			SendNUIMessage({response = "validTarget", data = options})
 		end
