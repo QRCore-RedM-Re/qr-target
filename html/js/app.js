@@ -5,7 +5,6 @@ const Targeting = Vue.createApp({
             ChangeTextIconColor: false, // This is if you want to change the color of the icon next to the option text with the text color
             StandardEyeIcon: 'https://media.discordapp.net/attachments/1001133419473944596/1033778567181516911/nbj.png', // Instead of icon it's using a image source found in HTML 
             CurrentIcon: 'https://media.discordapp.net/attachments/1001133419473944596/1033778567181516911/nbj.png', // Instead of icon it's using a image source found in HTML
-            //SuccessIcon: 'https://media.discordapp.net/attachments/1001133419473944596/1033778566745301004/sdasda.png', // Instead of icon it's using a image source found in HTML
             SuccessIcon: 'https://media.discordapp.net/attachments/1001133419473944596/1033778566745301004/sdasda.png', // Instead of icon it's using a image source found in HTML
             SuccessColor: "rgb(240, 87, 14)",
             StandardColor: "white",
@@ -80,7 +79,6 @@ const Targeting = Vue.createApp({
         FoundTarget(item) {
             if (item.data) {
                 //this.CurrentIcon = item.data;
-                //console('currentIcon ' + this.CurrentIcon )
                 this.CurrentIcon = this.SuccessIcon;
             } else {
                 this.CurrentIcon = this.SuccessIcon;
